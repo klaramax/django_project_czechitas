@@ -14,18 +14,18 @@ class Address(models.Model):
         return f'{self.street}, {self.zip_code} {self.city}'
 
 
-class Company(models.Model):
-    status_choices = (
-        ("N", "New"),
-        ("L", "Lead"),
-        ("O", "Opportunity"),
-        ("C", "Active Customer"),
-        ("FC", "Former Customer"),
-        ("I", "Inactive")
-    )
+class CompanyStatusType(models.TextChoices):
+    N = "New"
+    L = "Lead"
+    O = "Opportunity"
+    C = "Active Customer"
+    FC = "Former Customer"
+    I = "Inactive"
 
+
+class Company(models.Model):
     name = models.CharField(max_length=50)
-    status = models.CharField(max_length=2, default="N", choices=status_choices)
+    status = models.CharField(max_length=20, choices=CompanyStatusType.choices, default="New")
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     email = models.CharField(max_length=50, null=True, blank=True)
     identification_number = models.CharField(max_length=100)
