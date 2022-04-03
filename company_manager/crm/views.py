@@ -22,3 +22,10 @@ class CompaniesListView(ListView):
         context = super().get_context_data(**kwargs)
         context['companies'] = self.get_queryset().order_by('name')
         return context
+
+
+class OpportunityCreateView(CreateView):
+    model = models.Opportunity
+    template_name = "opportunity/create_opportunity.html"
+    fields = ["company", "sales_manager", "primary_contact", "description", "status", "value"]
+    success_url = reverse_lazy("index")
